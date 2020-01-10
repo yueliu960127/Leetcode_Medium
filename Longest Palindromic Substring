@@ -1,0 +1,17 @@
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        import numpy as np
+        strings = []
+        max_lengths = []
+        for i in range(len(s)):
+            j = len(s) - 1
+            while j > i:
+                if s[i:j] == s[i:j][::-1]:
+                    max_lengths.append(len(s[i:j]))
+                    strings.append(str(s[i:j]))
+                j -= 1
+        return strings[np.argmax(max_lengths)]
