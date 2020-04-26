@@ -10,7 +10,7 @@ class Solution(object):
         if numRows > len(s):
             return s
         row = 0
-        result = ["" for i in range(len(s))]
+        result = [""] * numRows
         down = True
         for i in range(len(s)):
             result[row] += s[i]
@@ -22,7 +22,8 @@ class Solution(object):
                 row += 1
             elif down == False:
                 row -= 1
-        converted = ""
-        for i in range(numRows):
-            converted += result[i]
-        return converted
+        # converted = ""
+        # for i in range(numRows):
+        #     converted += result[i]
+        # return converted
+        return ''.join(result)
