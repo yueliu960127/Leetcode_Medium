@@ -1,0 +1,55 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+'''
+Divide and Conquer
+
+                0   1   2   3   4   5   6   7   8   9
+interval = 1      0       2       4       6       8
+
+interval = 2          0               4           8
+
+
+interval = 4                   0                  8
+
+
+interval = 8                              0
+'''
+
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        if not lists:
+            return None
+        interval = 1
+        length = len(lists)
+        while interval < length:
+            for i in range(0, length-interval, interval * 2):
+                lists[i] = self.merge2lists(lists[i], lists[i + interval])
+            interval *= 2
+        return lists[0]
+        
+'''
+Recursively merge two lists
+'''
+        
+    def merge2lists(self, l1, l2):
+        #base case. if one of the lists is exhausted, attach the other list to the end of the merged list
+        if not l1:
+            return l2
+        if not l2:
+            return l1
+        
+        if l1.val <= l2.val:
+            #if l1.val <= l2.val, the merged list starts with l1 and the rest of the merged list 
+            #would be self.merge2lists(l1.next, l2), therefore, return l1 would give us the complete merged list
+            
+            l1.next = self.merge2lists(l1.next, l2)
+            return l1
+        else:
+            #if l1.val > l2.val, the merged list starts with l2 and the rest of the merged list 
+            #would be self.merge2lists(l1, l2.next), therefore, return l2 would give us the complete merged list
+            l2.next = self.merge2lists(l1, l2.next)
+            return l2
