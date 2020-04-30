@@ -23,4 +23,4 @@ class Solution:
         cur = pre.next
         pre.next = front
         last.next = cur
-        return dummy.next92. Reverse Linked List II
+        return dummy.next
